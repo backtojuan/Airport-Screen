@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="151.0" prefWidth="269.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="120.0" fitWidth="84.0" layoutX="11.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imgs/warning.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="11.0" layoutY="14.0" text="There was a problem with the file requested">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="95.0" layoutY="45.0" text="Make sure the file exists" />
+      <Label layoutX="96.0" layoutY="67.0" text="or it has the right name" />
+      <Label layoutX="95.0" layoutY="87.0" text="&quot;level(number).txt&quot;" />
+   </children>
+</Pane>

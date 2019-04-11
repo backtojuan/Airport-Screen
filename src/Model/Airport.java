@@ -1,6 +1,10 @@
 //___________________________________________________package of the class___________________________________________________________
 
 	package Model;
+
+//__________________________________________________used packages for this class______________________________________________________
+	
+	import java.io.IOException;
 	
 //__________________________________________________________________________________________________________________________________
 	/**
@@ -11,7 +15,7 @@
 	 */
 	public class Airport {
 		
-		public final static int MAX_FLIGHTS = 1000;	
+		public final static int MAX_FLIGHTS = 500;	
 		private Flight[] flights;
 
 //_______________________________________________Methods for this class_______________________________________________________________
@@ -21,7 +25,7 @@
 		 * This method creates and airport with its own flights <br>
 		 * @param size the number of flights that the airport is going to have
 		 */
-		public Airport(int size) {
+		public Airport(int size) throws IOException{
 			flights = new Flight[size];
 			init();
 			checkIDs();
@@ -35,7 +39,7 @@
 		 * <b>Pos:</b> The new flights have been created inside the airport. <br>
 		 * @param size the new number of flights that the airport is going to have.
 		 */
-		public void setFlights(int size) {
+		public void setFlights(int size) throws IOException{
 			flights = new Flight[size];
 			init();
 			checkIDs();
@@ -48,7 +52,7 @@
 		 * <b>Pre:</b> The array of airports has been initialized with the finally size.<br>
 		 * <b>Pos:</b> The array of airports is fill with the respective number of airports.<br>
 		 */
-		public void init() {
+		public void init() throws IOException{
 			for(int i=0;i<flights.length;i++) {
 				flights[i] = new Flight();
 			}

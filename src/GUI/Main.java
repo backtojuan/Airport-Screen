@@ -25,7 +25,7 @@
 	
 			Scene scene = new Scene(root);
 			stage.setTitle("Airport Screen Simulator");
-			stage.setFullScreen(true);
+			stage.resizableProperty().setValue(Boolean.TRUE);
 			stage.setScene(scene);
 			
 			
