@@ -73,7 +73,6 @@
 				IcesiAirport = new Airport(generator.nextInt(Airport.MAX_FLIGHTS));
 				
 				InitializeTV();
-				
 				prueba();
 				}
 				catch (IOException ioe) {
@@ -154,10 +153,11 @@
 		    	try {
 		    		int size = Integer.parseInt(sizeTextField.getText());
 			    	IcesiAirport.setFlights(size);
+			    	
 			    	if(size<0) {
 			    		throw new InvalidInformationException(size);
 			    	}
-			    	else if(size>1000000) {
+			    	else if(size>1000) {
 			    		throw new InvalidInformationException(0);
 			    	}
 			    	updateGUI();
@@ -177,8 +177,19 @@
 			    	stage.setScene(new Scene(root1));  
 			    	stage.show();
 				}
-		    	catch(InvalidInformationException iie){
-		    		lblMessage.setText(iie.getMessage());
+		    	catch(InvalidInformationException | NumberFormatException e){
+		    		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warningWindow2.fxml"));
+			    	Parent root1 = (Parent) fxmlLoader.load();
+			    	Stage stage = new Stage();
+			    	stage.setTitle("Warning Suggestions");
+			    	stage.centerOnScreen();
+			    	stage.setResizable(false);
+			    	
+			    	Image image = new Image ("GUI/imgs/Icon.png");
+					stage.getIcons().add(image);
+					
+			    	stage.setScene(new Scene(root1));  
+			    	stage.show();
 		    	}
 		    }
 	
@@ -192,7 +203,7 @@
 		     * @see Sorting.Selection#sortByHour(Airport IcesiAirport)
 		     */
 		    void sortByHour(ActionEvent event) {
-		    	selection.sortByHour(IcesiAirport);
+		   
 		    	prueba();
 		    	updateGUI();
 		    }

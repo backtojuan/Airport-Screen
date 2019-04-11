@@ -19,10 +19,6 @@
 	 * @version V_01_April-2019
 	 */
 	public class Flight {
-
-		public final static String PATH_AIRLINES = "data/Airlines.txt";
-		public final static String PATH_DESTINATIONS = "data/Destinations.txt";
-		public final static String PATH_GATES = "data/Gates.txt";
 		
 		private String date;
 		private String hour;
@@ -30,11 +26,7 @@
 		private int id;
 		private String destinationcity;
 		private String gate;
-		
-		private ArrayList<String> airlines;
-		private ArrayList<String> destinations;
-		private ArrayList<String> gates;
-		
+	
 		private Random generator;
 	
 		
@@ -44,30 +36,21 @@
 		 * <b>Flight Constructor</b>
 		 * This method creates a flight with random attributes
 		 */
-		public Flight() throws IOException{
+		public Flight(String airline, String destination, String gate){
 			generator = new Random();
 			
 			date = generateRandomDate();
 			verifyDate();
 			hour = generateRandomHour();
 			verifyHour();
-			init();
-			generateRandomAirline();
+			giveAirline(airline);
 			generateRandomID();
-			generateRandomDestination();
-			generateRandomGate();
+			giveDestinationCity(destination);
+			giveGate(gate);
 		}
 	//________________________________________________________________________________________________________________________________
 		
-		/**
-		 * This method initialize the arraylists that are going to contain the respective values read from the file, so every
-		 * attribute can take a different an random value
-		 */
-		public void init() {
-			airlines = new ArrayList<String>();
-			destinations = new ArrayList<String>();
-			gates = new ArrayList<String>();
-		}
+		
 	//________________________________________________________________________________________________________________________________
 	
 		/**
@@ -160,74 +143,6 @@
 			int id = generator.nextInt(Airport.MAX_FLIGHTS);			
 			return id;
 		}
-		
-	//________________________________________________________________________________________________________________________________	
-		
-		/**
-		 * This method gives a random airline to the flight
-		 * <b>Pos:</b> A random generated airline is given to the flight
-		 */
-		private void generateRandomAirline() throws IOException{
-			
-				load(PATH_AIRLINES);
-				
-				int indicator = generator.nextInt(airlines.size());
-	
-				airline = airlines.get(indicator);
-			}
-	//________________________________________________________________________________________________________________________________
-		
-		/**
-		 * This method gives a random destination to the flight
-		 * <b>Pos:</b> A random generated destination is given to the flight
-		 */
-		private void generateRandomDestination() throws IOException {
-			
-				load(PATH_DESTINATIONS);
-				
-				int indicator = generator.nextInt(destinations.size());
-	
-				destinationcity = destinations.get(indicator);
-			}		
-	//________________________________________________________________________________________________________________________________	
-		
-		/**
-		 * This method gives a random gate to the flight
-		 * <b>Pos:</b> A random generated gate is given to the flight 
-		 */
-		private void generateRandomGate() throws IOException{
-			
-				load(PATH_GATES);
-				
-				int indicator = generator.nextInt(gates.size());
-	
-				gate = gates.get(indicator);
-			}
-	//________________________________________________________________________________________________________________________________
-		
-		/**
-		 * This method loads and reads the files that contains the respective information to generate random
-		 * airlines, destinations, and gates
-		 * @throws IOException in the case that the file does not exist or a problem occur during reading the file
-		 */
-		public void load(String path) throws IOException{
-			BufferedReader br = new BufferedReader(new FileReader(path));
-			String line = br.readLine();
-			
-			while(line!=null) {
-				if(path == PATH_AIRLINES) {
-					airlines.add(line);
-				}
-				else if(path == PATH_DESTINATIONS){
-					destinations.add(line);
-				}
-				else if(path == PATH_GATES){
-					gates.add(line);
-				}
-				line = br.readLine();
-			}
-			br.close();
-		}
 	//________________________________________________________________________________________________________________________________
 		
 		/**
@@ -273,6 +188,35 @@
 					hour = generateRandomHour();
 				}
 			}
+		}
+	//________________________________________________________________________________________________________________________________
+		
+		/**
+		 * This method gives a value to the airline of the flight
+		 * @param Airline the airline that is going to be assign to the attribute of the flight
+		 */
+		public void giveAirline(String Airline) {
+			airline = Airline;
+		}
+		
+	//________________________________________________________________________________________________________________________________
+		
+		/**
+		 * This method gives a value to the destination of the flight
+		 * @param destinationc
+		 */
+		public void giveDestinationCity(String destinationc) {
+			destinationcity = destinationc;
+		}
+		
+	//________________________________________________________________________________________________________________________________
+		
+		/**
+		 * This method gives a value to the destination of the flight
+		 * @param g
+		 */
+		public void giveGate(String g) {
+			gate = g;
 		}
 	//________________________________________________________________________________________________________________________________
 		

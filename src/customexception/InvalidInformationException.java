@@ -42,12 +42,12 @@
 			//Size must be positive
 			if(this.invalidsize < 0)
 			{
-				report += "You cannot create a negative size of flights" + "\n";
+				report += "You cannot create a negative size of flights";
 			}
 			
 			//Order can't be higher
-			if(this.invalidsize >1000000) {
-				report += "You cannot create a size of more than 1000000" + "\n";
+			if(this.invalidsize >1000) {
+				report += "You cannot create a size of more than 1000";
 			}
 	
 			return report;

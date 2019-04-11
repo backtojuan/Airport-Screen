@@ -1,11 +1,14 @@
 //___________________________________________________package of the class___________________________________________________________
 
 	package Model;
-
 //__________________________________________________used packages for this class______________________________________________________
 	
 	import java.io.IOException;
+	import java.io.BufferedReader;
+	import java.io.FileReader;
+	import java.util.ArrayList;
 	
+	import java.util.Random;
 //__________________________________________________________________________________________________________________________________
 	/**
 	 * This class manage the necessary attributes and methods to manage and create an Airport.
@@ -16,8 +19,18 @@
 	public class Airport {
 		
 		public final static int MAX_FLIGHTS = 500;	
+
+		public final static String PATH_AIRLINES = "data/Airlines.txt";
+		public final static String PATH_DESTINATIONS = "data/Destinations.txt";
+		public final static String PATH_GATES = "data/Gates.txt";
+		
+		private ArrayList<String> airlines;
+		private ArrayList<String> destinations;
+		private ArrayList<String> gates;
+	
 		private Flight[] flights;
 
+		private Random generator;
 //_______________________________________________Methods for this class_______________________________________________________________
 		
 		/**
@@ -26,9 +39,16 @@
 		 * @param size the number of flights that the airport is going to have
 		 */
 		public Airport(int size) throws IOException{
+			
+			generator = new Random();
+			
 			flights = new Flight[size];
 			init();
 			checkIDs();
+
+			airlines = new ArrayList<String>();
+			destinations = new ArrayList<String>();
+			gates = new ArrayList<String>();
 		}
 		
 	//________________________________________________________________________________________________________________________________
@@ -54,7 +74,7 @@
 		 */
 		public void init() throws IOException{
 			for(int i=0;i<flights.length;i++) {
-				flights[i] = new Flight();
+				flights[i] = new Flight(generateRandomAirline(),generateRandomDestination(),generateRandomGate());
 			}
 		}
 		
@@ -88,5 +108,80 @@
 		public Flight[] getFlights() {
 			return flights;
 		}
+	//________________________________________________________________________________________________________________________________
+		
+		/**
+		 * This method loads and reads the files that contains the respective information to generate random
+		 * airlines, destinations, and gates
+		 * @throws IOException in the case that the file does not exist or a problem occur during reading the file
+		 */
+		public void load(String path) throws IOException{
+			BufferedReader br = new BufferedReader(new FileReader(path));
+			String line = br.readLine();
+			
+			while(line!=null) {
+				if(path == PATH_AIRLINES) {
+					airlines.add(line);
+				}
+				else if(path == PATH_DESTINATIONS){
+					destinations.add(line);
+				}
+				else if(path == PATH_GATES){
+					gates.add(line);
+				}
+				line = br.readLine();
+			}
+			br.close();
+		}
+	//________________________________________________________________________________________________________________________________
+		
+		/**
+		 * This method gives a random airline to the flight
+		 * <b>Pos:</b> A random generated airline is given to the flight
+		 */
+		private String generateRandomAirline() throws IOException{
+			
+				load(PATH_AIRLINES);
+				
+				int indicator = generator.nextInt(airlines.size());
+	
+				String airline = airlines.get(indicator);
+				
+				return airline;
+			}
+		
+	//________________________________________________________________________________________________________________________________
+		
+		/**
+		 * This method gives a random destination to the flight
+		 * <b>Pos:</b> A random generated destination is given to the flight
+		 */
+		private String generateRandomDestination() throws IOException {
+			
+				load(PATH_DESTINATIONS);
+				
+				int indicator = generator.nextInt(destinations.size());
+	
+				String destinationCity = destinations.get(indicator);
+			
+				return destinationCity;
+			}		
+	//________________________________________________________________________________________________________________________________	
+		
+		/**
+		 * This method gives a random gate to the flight
+		 * <b>Pos:</b> A random generated gate is given to the flight 
+		 */
+		private String generateRandomGate() throws IOException{
+			
+				load(PATH_GATES);
+				
+				int indicator = generator.nextInt(gates.size());
+	
+				String gate = gates.get(indicator);
+				
+				return gate;
+		}
+		
 	//________________________________________________________________________________________________________________________________
 }
