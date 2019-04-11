@@ -36,21 +36,18 @@
 		 * <b>Flight Constructor</b>
 		 * This method creates a flight with random attributes
 		 */
-		public Flight(String airline, String destination, String gate){
+		public Flight(String airl, String dest, String g){
 			generator = new Random();
 			
 			date = generateRandomDate();
 			verifyDate();
 			hour = generateRandomHour();
 			verifyHour();
-			giveAirline(airline);
 			generateRandomID();
-			giveDestinationCity(destination);
-			giveGate(gate);
-		}
-	//________________________________________________________________________________________________________________________________
-		
-		
+			airline = airl;
+			destinationcity = dest;
+			gate = g;
+		}	
 	//________________________________________________________________________________________________________________________________
 	
 		/**
@@ -188,35 +185,6 @@
 					hour = generateRandomHour();
 				}
 			}
-		}
-	//________________________________________________________________________________________________________________________________
-		
-		/**
-		 * This method gives a value to the airline of the flight
-		 * @param Airline the airline that is going to be assign to the attribute of the flight
-		 */
-		public void giveAirline(String Airline) {
-			airline = Airline;
-		}
-		
-	//________________________________________________________________________________________________________________________________
-		
-		/**
-		 * This method gives a value to the destination of the flight
-		 * @param destinationc
-		 */
-		public void giveDestinationCity(String destinationc) {
-			destinationcity = destinationc;
-		}
-		
-	//________________________________________________________________________________________________________________________________
-		
-		/**
-		 * This method gives a value to the destination of the flight
-		 * @param g
-		 */
-		public void giveGate(String g) {
-			gate = g;
 		}
 	//________________________________________________________________________________________________________________________________
 		

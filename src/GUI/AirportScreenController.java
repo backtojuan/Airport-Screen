@@ -99,7 +99,7 @@
 			 * This method initialize the tableview control element so the flights can be displayed in the GUI 
 			 * @return a TableView of type Flight that containts the random flights generated once the program starts
 			 */
-			public void InitializeTV() {
+			private void InitializeTV() {
 				
 				//Creates the table of flights
 				//Date Column

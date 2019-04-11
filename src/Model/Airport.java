@@ -39,16 +39,11 @@
 		 * @param size the number of flights that the airport is going to have
 		 */
 		public Airport(int size) throws IOException{
-			
 			generator = new Random();
 			
 			flights = new Flight[size];
 			init();
 			checkIDs();
-
-			airlines = new ArrayList<String>();
-			destinations = new ArrayList<String>();
-			gates = new ArrayList<String>();
 		}
 		
 	//________________________________________________________________________________________________________________________________
@@ -73,9 +68,15 @@
 		 * <b>Pos:</b> The array of airports is fill with the respective number of airports.<br>
 		 */
 		public void init() throws IOException{
+			
+			airlines = new ArrayList<String>();
+			destinations = new ArrayList<String>();
+			gates = new ArrayList<String>();
+			
 			for(int i=0;i<flights.length;i++) {
 				flights[i] = new Flight(generateRandomAirline(),generateRandomDestination(),generateRandomGate());
 			}
+			
 		}
 		
 	//________________________________________________________________________________________________________________________________
