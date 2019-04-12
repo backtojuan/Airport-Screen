@@ -12,6 +12,21 @@
 		
 //_______________________________________________Methods for this class_______________________________________________________________		
 	
+		public void sortByIdentifier(Airport airport) {
+				for (int i = 0; i < airport.getFlights().length-1; i++) {
+					int min = i;
+					for (int j = i+1; j < airport.getFlights().length; j++) {
+						Flight minValue = airport.getFlights()[min];
+						Flight current  = airport.getFlights()[j];
+						if(current.compareTo(minValue) < 0) {
+							min = j;
+						}
+					}
+					Flight temp = airport.getFlights()[min];
+					airport.getFlights()[min] = airport.getFlights()[i];
+					airport.getFlights()[i] = temp;
+				}		
+			}
 		
 	//________________________________________________________________________________________________________________________________
 		
@@ -23,4 +38,5 @@
 	
 	
 //____________________________________________________________________________________________________________________________________
+
 }

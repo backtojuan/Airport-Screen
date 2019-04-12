@@ -65,31 +65,12 @@
 			 * 
 			 */
 			private void initialize() throws IOException{
-				
-				try {
 				//Initialize the necessary objects to make the application works
 				selection = new Selection();
 				generator = new Random();
-				IcesiAirport = new Airport(generator.nextInt(Airport.MAX_FLIGHTS));
+				IcesiAirport = new Airport(20);
 				
 				InitializeTV();
-				prueba();
-				}
-				catch (IOException ioe) {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("warningWindow.fxml"));
-			    	Parent root1 = (Parent) fxmlLoader.load();
-			    	Stage stage = new Stage();
-			    	stage.setTitle("Warning Suggestions");
-			    	stage.centerOnScreen();
-			    	stage.setResizable(false);
-			    	
-			    	Image image = new Image ("GUI/imgs/Icon.png");
-					stage.getIcons().add(image);
-					stage.initModality(Modality.WINDOW_MODAL);
-					
-			    	stage.setScene(new Scene(root1));  
-			    	stage.show();
-				}
 			}
 	//________________________________________________________________________________________________________________________________
 			
@@ -203,7 +184,7 @@
 		     * @see Sorting.Selection#sortByHour(Airport IcesiAirport)
 		     */
 		    void sortByHour(ActionEvent event) {
-		   
+		    	
 		    	prueba();
 		    	updateGUI();
 		    }
@@ -269,7 +250,9 @@
 		     * @see Sorting.Selection#sortByHour(Airport IcesiAirport)
 		     */
 		    void sortByIdentifier(ActionEvent event) {
-		    	
+		    	selection.sortByIdentifier(IcesiAirport);
+		    	prueba();
+		    	updateGUI();
 		    }
 		    
 	//________________________________________________________________________________________________________________________________

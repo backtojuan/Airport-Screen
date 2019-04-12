@@ -88,14 +88,26 @@
 		 */
 		public void checkIDs() {
 			for(int i=0;i<flights.length;i++) {
-				int id1 = flights[i].getId();
-				for(int j=i+1;j<flights.length;j++) {
-					int id2 = flights[j].getId();
-					if(id1 == id2) {
-						//changes the id of the flight in the case that two of them has the same number assignated
-						flights[j].setId(flights[j].generateRandomID());
-					}
+				checkID(flights[i].getId());
+			}
+		}
+	//________________________________________________________________________________________________________________________________
+		
+		/**
+		 * This method makes sure that every flight has its own id with no repetition.<br>
+		 * <b>Pre:</b> The array of airports has been initialized and fill with the respective and correct flights.<br>
+		 * <b>Pos:</b> The flights are check and remain with an unique number.<br>
+		 */
+		public void checkID(int id) {
+			
+			boolean flag = false;
+			int i = 0;
+			while(!flag) {
+				if(id == flights[i].getId()) {
+					flag = true;
+					flights[i].setId(flights[i].generateRandomID());
 				}
+				i++;
 			}
 		}
 	//________________________________________________________________________________________________________________________________

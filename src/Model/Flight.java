@@ -5,6 +5,7 @@
 //________________________________________________packages used for this class________________________________________________________
 	
 	import java.util.Random;
+	
 	import java.util.ArrayList;
 	import java.io.BufferedReader;
 	import java.io.File;
@@ -18,7 +19,7 @@
 	 * @author Juan José Valencia Jaramillo
 	 * @version V_01_April-2019
 	 */
-	public class Flight {
+	public class Flight implements Comparable<Flight> {
 		
 		private String date;
 		private String hour;
@@ -264,4 +265,19 @@
 			return gate;
 		}		
 //____________________________________________________________________________________________________________________________________
+		
+		@Override
+		public int compareTo(Flight other) {
+			int comparation ;
+			if(id>other.id) {
+				comparation = 1;
+			}else if(id<other.id) {
+				comparation = -1;
+			}else {
+				comparation = 0;
+			}
+			
+			return comparation;
+		}
+//____________________________________________________________________________________________________________________________________	
 }
