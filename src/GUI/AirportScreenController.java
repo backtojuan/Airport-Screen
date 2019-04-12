@@ -5,12 +5,18 @@
 	
 	
 	import java.io.IOException;
+	import java.util.Arrays;
 	import java.util.Random;
 	
 	import Model.Airport;
 	import Model.Flight;
-	import customexception.InvalidInformationException;
+	import Sorting.Bubble;
+	import Sorting.FlightComparator;
+	import Sorting.Insertion;
 	import Sorting.Selection;
+	import Searching.Linear;
+	import Searching.Binary;
+	import customexception.InvalidInformationException;
 	import javafx.collections.FXCollections;
 	import javafx.collections.ObservableList;
 	import javafx.event.ActionEvent;
@@ -19,13 +25,12 @@
 	import javafx.scene.Parent;
 	import javafx.scene.Scene;
 	import javafx.scene.control.Label;
-	import javafx.scene.control.TextField;
 	import javafx.scene.control.TableColumn;
 	import javafx.scene.control.TableView;
+	import javafx.scene.control.TextField;
 	import javafx.scene.control.cell.PropertyValueFactory;
 	import javafx.scene.image.Image;
 	import javafx.scene.layout.BorderPane;
-	import javafx.stage.Modality;
 	import javafx.stage.Stage;
 
 //_______________________________________________Attributes___________________________________________________________________________
@@ -44,7 +49,14 @@
 		    private Label lblMessage;
 			
 			@FXML
+			private Label timeReport;
+			
+			@FXML
 			private TextField sizeTextField;
+			
+			@FXML
+			private TextField searchTextField;
+		//___________________________________________
 			
 			private TableView<Flight> table;
 			private ObservableList<Flight> flights;
@@ -57,6 +69,14 @@
 			
 			private Selection selection;
 			
+			private Bubble bubble;
+			
+			private Insertion insertion;
+	
+			private Linear linear;
+			
+			private Binary binary;
+			
 //_______________________________________________Methods for this class_______________________________________________________________
 			
 			@FXML
@@ -65,9 +85,17 @@
 			 * 
 			 */
 			private void initialize() throws IOException{
+				
 				//Initialize the necessary objects to make the application works
 				selection = new Selection();
+				bubble = new Bubble();
+				insertion = new Insertion();
+				
+				linear = new Linear();
+				binary = new Binary();
+				
 				generator = new Random();
+				
 				IcesiAirport = new Airport(20);
 				
 				InitializeTV();
@@ -181,23 +209,23 @@
 		     * This method sort the flights by its hour in an ascendent order.<br>
 		     * 
 		     * @param event the event triggered by the user that is handle in this method
-		     * @see Sorting.Selection#sortByHour(Airport IcesiAirport)
+		     * @see 
 		     */
-		    void sortByHour(ActionEvent event) {
+		    public void sortByHour(ActionEvent event) {
+		 
 		    	
-		    	prueba();
-		    	updateGUI();
 		    }
 	//________________________________________________________________________________________________________________________________
 		    
 		    @FXML
 		    /**
-		     * This method sort the flights by its hour in an ascendent order.<br>
+		     * This method sort the flights by its date in an ascendent order.<br>
 		     * 
 		     * @param event the event triggered by the user that is handle in this method
-		     * @see Sorting.Selection#sortByHour(Airport IcesiAirport)
+		     * @see 
 		     */
-		    void sortByDate(ActionEvent event) {
+		    public void sortByDate(ActionEvent event) {
+		    	
 		    	
 		    }
 		    
@@ -205,54 +233,188 @@
 		
 		    @FXML
 		    /**
-		     * This method sort the flights by its hour in an ascendent order.<br>
+		     * This method sort the flights by its destination in an lexicographycal order.<br>
 		     * 
 		     * @param event the event triggered by the user that is handle in this method
-		     * @see Sorting.Selection#sortByHour(Airport IcesiAirport)
+		     * @see 
 		     */
-		    void sortByDestination(ActionEvent event) {
+		    public void sortByDestination(ActionEvent event) {
 		    	
-		    }
-		    
-	//________________________________________________________________________________________________________________________________
-		    
-		    @FXML
-		    /**
-		     * This method sort the flights by its hour in an ascendent order.<br>
-		     * 
-		     * @param event the event triggered by the user that is handle in this method
-		     * @see Sorting.Selection#sortByHour(Airport IcesiAirport)
-		     */
-		    void sortByAirline(ActionEvent event) {
+		    	long b = System.currentTimeMillis();
+		    	Arrays.sort(IcesiAirport.getFlights(), new FlightComparator());
+		    	long f = System.currentTimeMillis();
 		    	
-		    }
-		    
-	//________________________________________________________________________________________________________________________________
-		    
-		    @FXML
-		    /**
-		     * This method sort the flights by its hour in an ascendent order.<br>
-		     * 
-		     * @param event the event triggered by the user that is handle in this method
-		     * @see Sorting.Selection#sortByHour(Airport IcesiAirport)
-		     */
-		    void sortByGate(ActionEvent event) {
-		    	
-		    }
-		    
-	//________________________________________________________________________________________________________________________________
-		    
-		    @FXML
-		    /**
-		     * This method sort the flights by its hour in an ascendent order.<br>
-		     * 
-		     * @param event the event triggered by the user that is handle in this method
-		     * @see Sorting.Selection#sortByHour(Airport IcesiAirport)
-		     */
-		    void sortByIdentifier(ActionEvent event) {
-		    	selection.sortByIdentifier(IcesiAirport);
-		    	prueba();
 		    	updateGUI();
+		    	timeReport.setText(" " + (f-b) + " Milliseconds ");
+		    
+		    }
+		    
+	//________________________________________________________________________________________________________________________________
+		    
+		    @FXML
+		    /**
+		     * This method sort the flights by its airline in an lexicographycal order.<br>
+		     * 
+		     * @param event the event triggered by the user that is handle in this method
+		     * @see Sorting.Bubble#sortByAirline(Airport IcesiAirport)
+		     */
+		    public void sortByAirline(ActionEvent event) {
+		    	
+		    	long b = System.currentTimeMillis();
+		    	bubble.sortByAirline(IcesiAirport);
+		    	long f = System.currentTimeMillis();
+		    	
+		    	updateGUI();
+		    	timeReport.setText(" " + (f-b) + " Milliseconds ");
+		    }
+		    
+	//________________________________________________________________________________________________________________________________
+		    
+		    @FXML
+		    /**
+		     * This method sort the flights by its gate in an lexicographycall order.<br>
+		     * 
+		     * @param event the event triggered by the user that is handle in this method
+		     * @see Sorting.Selection#sortByGate(Airport IcesiAirport)
+		     */
+		    public void sortByGate(ActionEvent event) {
+		    	
+		    	long b = System.currentTimeMillis();
+		    	selection.sortByGate(IcesiAirport);
+		    	long f = System.currentTimeMillis();
+		    	
+		    	updateGUI();
+		    	timeReport.setText(" " + (f-b) + " Milliseconds ");
+		    }
+		    
+	//________________________________________________________________________________________________________________________________
+		    
+		    @FXML
+		    /**
+		     * This method sort the flights by its identifier in an ascendent order.<br>
+		     * 
+		     * @param event the event triggered by the user that is handle in this method
+		     * @see Sorting.Insertion#sortByIdentifier(Airport IcesiAirport)
+		     */
+		    public void sortByIdentifier(ActionEvent event) {
+		    	
+		    	long b = System.currentTimeMillis();
+		    	selection.sortByIdentifier(IcesiAirport);
+		    	long f = System.currentTimeMillis();
+		    	
+		    	updateGUI();
+		    	timeReport.setText(" " + (f-b) + " Milliseconds ");
+		    }
+		    
+	//________________________________________________________________________________________________________________________________
+		    
+		    @FXML
+		    /**
+		     * This method searchs a flight with an indicated airline inside the airport
+		     * @param event the event triggered by the user that is handle in this method
+		     */
+		    void searchAirline(ActionEvent event) {
+		    	try {
+		    		long b = System.currentTimeMillis();
+		    		int pos = binary.searchAirline(IcesiAirport, searchTextField.getText()); 
+		    		long f = System.currentTimeMillis();
+			    		if(pos !=0) {
+			    			IcesiAirport.getFlights()[0] = IcesiAirport.getFlights()[pos];
+			    			updateGUI();
+			    			lblMessage.setText("Your searched flight is being displayed as first");
+		    			}
+			    		else {
+			    			lblMessage.setText("The flight could not be searched, make sure:" + "The value is correct and is in Capital letters" );
+			    		}
+			    		
+			    		timeReport.setText(" " + (f-b) + " Milliseconds ");
+			    	}
+			    	catch(NumberFormatException nfe) {
+			    		lblMessage.setText("You can not search without given a value" + "\nor entering invalid information");
+			    	}
+		    }
+		    
+	//________________________________________________________________________________________________________________________________
+
+		    @FXML
+		    /**
+		     * This method searchs a flight with an indicated destination inside the airport
+		     * @param event the event triggered by the user that is handle in this method
+		     */
+		    void searchDestination(ActionEvent event) {
+		    	try {
+		    		long b = System.currentTimeMillis();
+		    		int pos = binary.searchDestination(IcesiAirport, searchTextField.getText());
+		    		long f = System.currentTimeMillis();
+		    		if(pos !=0) {
+		    			IcesiAirport.getFlights()[0] = IcesiAirport.getFlights()[pos];
+		    			updateGUI();
+		    			lblMessage.setText("Your searched flight is being displayed as first");
+	    			}
+		    		else {
+		    			lblMessage.setText("The flight could not be searched, make sure:" + "The value is correct and is in Capital letters" );
+		    		}
+		    		
+		    		timeReport.setText(" " + (f-b) + " Milliseconds ");
+		    	}
+			    	catch(NumberFormatException nfe) {
+			    		lblMessage.setText("You can not search without given a value" + "\nor entering invalid information");
+			    	}
+		    }
+	//________________________________________________________________________________________________________________________________
+		   
+		    @FXML
+		    /**
+		     * This method searchs a flight with an indicated gate inside the airport
+		     * @param event the event triggered by the user that is handle in this method
+		     */
+		    void searchGate(ActionEvent event) {
+		    	try {
+		    		long b = System.currentTimeMillis();
+		    		int pos = linear.searchGate(IcesiAirport, searchTextField.getText());
+		    		long f = System.currentTimeMillis();
+		    		if(pos !=0) {
+		    			IcesiAirport.getFlights()[0] = IcesiAirport.getFlights()[pos];
+		    			updateGUI();
+		    			lblMessage.setText("Your searched flight is being displayed as first");
+	    			}
+		    		else {
+		    			lblMessage.setText("The flight could not be searched, make sure:" + "The value is correct and is in Capital letters" );
+		    		}
+		    		
+		    		timeReport.setText(" " + (f-b) + " Milliseconds ");
+		    	}
+			    	catch(NumberFormatException nfe) {
+			    		lblMessage.setText("You can not search without given a value" + "\nor entering invalid information");
+			    	}
+		    }
+	
+	//________________________________________________________________________________________________________________________________
+	
+		    @FXML
+		    /**
+		     * This method searchs a flight with an indicated identifier inside the airport
+		     * @param event the event triggered by the user that is handle in this method
+		     */
+		    void searchIdentifier(ActionEvent event) {
+		    	try {
+		    		long b = System.currentTimeMillis();
+		    		int pos = linear.searchIdentifier(IcesiAirport, Integer.parseInt(searchTextField.getText()));
+		    		long f = System.currentTimeMillis();
+		    		if(pos !=0) {
+		    			IcesiAirport.getFlights()[0] = IcesiAirport.getFlights()[pos];
+		    			updateGUI();
+		    			lblMessage.setText("Your searched flight is being displayed as first");
+	    			}
+		    		else {
+		    			lblMessage.setText("The flight could not be searched");
+		    		}
+		    		
+		    		timeReport.setText(" " + (f-b) + " Milliseconds ");
+		    	}
+		    		catch(NumberFormatException nfe) {
+		    			lblMessage.setText("You can not search without given a value" + "\nor entering invalid information");
+		    		}
 		    }
 		    
 	//________________________________________________________________________________________________________________________________

@@ -6,12 +6,6 @@
 	
 	import java.util.Random;
 	
-	import java.util.ArrayList;
-	import java.io.BufferedReader;
-	import java.io.File;
-	import java.io.FileReader;
-	import java.io.IOException;
-	
 //_______________________________________________________Atributtes___________________________________________________________________
 	/**
 	 * This class manage the necessary attributes and methods to manage and create a Flight
